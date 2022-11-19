@@ -3,15 +3,32 @@ const supertest = require('supertest');
 const request = supertest(app);
 
 describe('user tests', () => {
-  it('Testing if Jest works', () => {
-    expect(1).toBe(1);
-  });
-
-  it('Gets the test endpoint', async () => {
-    // Sends GET Request to /test endpoint
-    const response = await request.get('/user');
+  it('login should be successful', async () => {
+    const response = await request.get('/loginRoute');
 
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('pass!');
+    expect(response.body.message).toBe('login successful');
+  });
+
+  it('logout should === success', async () => {
+    const response = await request.get('/logoutRoute');
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('success');
+  });
+
+  it('profile should be successfully deleted', async () => {
+    const response = await request.get('/userProfileRoute');
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe(
+      'you have successfully deleted your account'
+    );
+  });
+
+  it('status should be 200', async () => {
+    const response = await request.get('/userRoute');
+
+    expect(response.statusCode).toBe(200);
   });
 });
